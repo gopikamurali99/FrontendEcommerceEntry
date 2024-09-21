@@ -59,6 +59,7 @@ export const CartProvider = ({children})=>{
               );
               setCart({ items: response.data.items || [] });
               window.location.reload();
+              
          } catch (error) {
             console.error('Error adding to cart:', error);
          }

@@ -1,7 +1,9 @@
 // src/components/Navbar.js
 // Navbar.jsx
 import React, { useState, useRef, useEffect, }  from 'react';
+import axios from 'axios';
 import { Link,useNavigate } from 'react-router-dom';
+
 
 const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -9,9 +11,18 @@ const Navbar = () => {
   const [isCategoryDropdownOpen, setIsCategoryDropdownOpen] = useState(false);
   const [isSearchActive,setIsSearchActive]= useState(false);
   const navigate=useNavigate();
-   const handleCartClick=()=>{
-    navigate('/cart')
-   }
+  const apiUrl = import.meta.env.VITE_BASE_URL
+  const handleCartClick = () => {
+    const token = localStorage.getItem('customertoken');
+    console.log('Token:', token);  // Check if the user is authenticated
+    if (token) {
+      // If authenticated, navigate to the cart page
+      navigate('/cart');
+    } else {
+      alert('Please signin/signup to voguevista')
+      navigate('/customer/signin');
+    }
+  };
 
   const accountDropdownRef = useRef(null);
   const categoryDropdownRef = useRef(null);
@@ -55,8 +66,26 @@ const Navbar = () => {
     setIsSearchActive(!isSearchActive);
   };
 
+  const handleLogout = async()=>{
+    try{
+       
+        console.log('Logout function called');
+        localStorage.removeItem('customertoken');
+
+        navigate('/customer/signin');
+
+        alert('logout successful!')
+
+    }
+    catch(error){
+        console.log('logout error',error)
+        
+    }
+}
+
+
   return (
-    <header className="bg-white text-black sticky top-0 z-50">
+    <header className="bg-white text-black sticky top-0 z-50 shadow-md">
     <div className="container mx-auto flex justify-between items-center p-4">
       <div>
           <Link to="/"><img src="/images/logo-no-background.png" alt="logo" className='h-10' /></Link>
@@ -72,7 +101,9 @@ const Navbar = () => {
                 <Link to="/profile" className="block px-4 py-2 hover:bg-gray-200">Profile</Link>
                 <Link to="/adminlogin" className="block px-4 py-2 hover:bg-gray-200">Admin Account</Link>
                 <Link to="/sellerlogin" className="block px-4 py-2 hover:bg-gray-200">Seller Account</Link>
-                <Link to="/logout" className="block px-4 py-2 hover:bg-gray-200">Logout</Link>
+                <span onClick={handleLogout} style={{ cursor: 'pointer', color: 'blue' }}>
+                Logout
+            </span>
               </div>
 
             )}

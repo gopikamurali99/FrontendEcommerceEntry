@@ -295,40 +295,9 @@ const Order = () => {
             </div>
           
             {/* Payment Options */}
-            <section>
-  <div className="mt-6">
-    <h4 className="text-lg font-semibold mb-2">Payment Options</h4>
-    <div className="grid grid-cols-1 gap-4">
-      {["Credit/Debit Card", "UPI", "Net Banking", "Cash on Delivery (COD)"].map((option, idx) => (
-        <label
-          key={idx}
-          className="flex justify-between items-center p-4 bg-white shadow-sm rounded-lg border hover:shadow-lg transition-shadow duration-200 ease-in-out"
-        >
-          <div className="flex items-center">
-            {/* Add payment method icons here */}
-            <span className="ml-2">{option}</span>
-          </div>
-          <input
-            type="radio"
-            name="paymentMethod"
-            value={option}
-            checked={paymentMethod === option}
-            onChange={handlePaymentChange}
-            className="ml-4"
-          />
-        </label>
-      ))}
-    </div>
-    <button
-      onClick={handlePaymentSubmit}
-      className="mt-6 w-full bg-black text-white py-3 rounded-lg hover:bg-gray-800 transition-colors duration-200"
-    >
-      Proceed to Payment
-    </button>
-  </div>
-</section>
-           
-          </div>
+        
+        
+</div>
           <Footer/>
     </>
         
@@ -336,3 +305,4 @@ const Order = () => {
 };
 
 export default Order;
+

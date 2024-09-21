@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import Navbar from '../../Components/Navbar';
+import Footer from '../../Components/footer';
 
 const CustomerLogin = () => {
   const [email, setEmail] = useState('');
@@ -23,7 +24,9 @@ const CustomerLogin = () => {
       const {token}= response.data;
       localStorage.setItem('customertoken',token)
       console.log(response.data)
+      console.log(token)
       navigate('/');
+      
     }
     catch(error){
       if(error.response){
@@ -41,14 +44,17 @@ const CustomerLogin = () => {
   return (
     <>
     <Navbar/>
-    <div className="flex justify-center items-center h-screen"
+    <div className="grid grid-cols-1 md:grid-cols-2 h-screen">
+    <div className="hidden md:block"
        style={{
-            backgroundImage: `url(./images/BackgroundImage.jpeg)`,
+            backgroundImage: `url(/images/customer1.avif)`,
                backgroundSize: 'cover',
                   backgroundPosition: 'center',
            }}
-           >
-      <div className="bg-white bg-opacity-50 p-8 rounded-lg shadow-md w-full max-w-md">
+           />
+
+           <div className="flex justify-center items-center bg-slate-400">
+      <div className=" bg-white bg-opacity-50 p-8 rounded-lg shadow-md w-full max-w-md">
         <h2 className="text-2xl font-bold mb-4">Login</h2>
         {error && <p className="text-red-500">{error}</p>}
         <form onSubmit={handleSubmit}>
@@ -92,6 +98,8 @@ const CustomerLogin = () => {
         </div>
       </div>
     </div>
+    </div>
+    <Footer/>
     </>
   );
 };

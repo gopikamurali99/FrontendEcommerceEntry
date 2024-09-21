@@ -39,12 +39,14 @@ const [Name, setName] = useState('');
   return (
     <>
     <Navbar/>
-    <div className="flex justify-center items-center h-screen" 
+    <div className="grid grid-cols-1 md:grid-cols-2 h-screen">
+    <div className="hidden md:block" 
     style={{
-      backgroundImage: `url(./images/BackgroundImage.jpeg)`,
+      backgroundImage: `url(/images/customersignin.avif)`,
       backgroundSize: 'cover',
       backgroundPosition: 'center',
-    }}>
+    }}/>
+      <div className="flex justify-center items-center bg-slate-100">
       <div className="bg-white bg-opacity-50 p-8 rounded-lg shadow-md w-full max-w-md">
         <h2 className="text-2xl font-bold mb-4">Login</h2>
         <form onSubmit={handleSubmit}>
@@ -93,8 +95,11 @@ const [Name, setName] = useState('');
           >
             Register
           </button>
+          <div className="mt-4 text-center">
+           <Link to="/customer/signin" className="text-blue-500 hover:text-blue-600">SignIn</Link>
+        </div>
         </form>
-        
+        </div>
       </div>
     </div>
     </>
