@@ -61,6 +61,7 @@ export const CartProvider = ({children})=>{
               setCart({ items: response.data.items || [] });
               setNotification('Item added to cart!');
               setTimeout(() => setNotification(''), 3000);
+              window.location.reload();
               
              
               
