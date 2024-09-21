@@ -9,7 +9,7 @@ const ProductPage = () => {
   const { id } = useParams();
   const [product, setProduct] = useState(null);
   const apiUrl = import.meta.env.VITE_BASE_URL;
-  const { addToCart } = useCart();
+  const { addToCart,notification } = useCart();
 
   useEffect(() => {
     const fetchProduct = async () => {
@@ -94,9 +94,12 @@ const ProductPage = () => {
               >
                 Add to Bag
               </button>
+              {/* Display the notification */}
+           
               <button className="bg-gray-200 py-2 px-4 rounded">
                 Add to Wishlist
               </button>
+              {notification && <div className="notification text-red-600 mt-7">{notification}</div>}
             </div>
           </div>
         </div>

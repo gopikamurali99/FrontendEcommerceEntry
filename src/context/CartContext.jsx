@@ -6,6 +6,7 @@ const CartContext = createContext();
 export const CartProvider = ({children})=>{
     const [cart, setCart] = useState({ items: [] });
     const [loading, setLoading] = useState(true);
+    const [notification, setNotification] = useState('');
     const apiUrl= import.meta.env.VITE_BASE_URL 
 
     useEffect(()=>{
@@ -58,7 +59,10 @@ export const CartProvider = ({children})=>{
                 }
               );
               setCart({ items: response.data.items || [] });
-              window.location.reload();
+              setNotification('Item added to cart!');
+              setTimeout(() => setNotification(''), 3000);
+              
+             
               
          } catch (error) {
             console.error('Error adding to cart:', error);
@@ -111,7 +115,7 @@ const updateCartQuantity = async(itemId,newQuantity) => {
 }
 
     return (
-        <CartContext.Provider value={{cart,addToCart,loading,removeFromCart,updateCartQuantity}}>
+        <CartContext.Provider value={{cart,addToCart,loading,removeFromCart,updateCartQuantity,notification}}>
             {children}
         </CartContext.Provider>
     )
