@@ -2,10 +2,23 @@
 import React from 'react';
 
 import { Link } from 'react-router-dom';
+import { useCart } from '../context/CartContext.jsx';
+
+
+
 
 const AllProductCard = ({ products }) => {
-    
-
+  console.log('Adding to cart:', products);
+  const { addToCart } = useCart();  
+  
+const handleAddToCart = () => {
+  console.log('Product object:', products);
+  addToCart({  id: products._id,
+    name: products.name,
+    price: products.price,
+    image: products.mainImage || products.images[0],
+ }); // Add item to cart
+};
   return (
     <div className="border rounded-lg overflow-hidden shadow-lg ">
       <Link to={`/product/${products._id}`}>
@@ -19,6 +32,11 @@ const AllProductCard = ({ products }) => {
           <p className="text-gray-700">Rs.{products.price.toFixed(2)}</p>
         </div>
       </Link>
+      <button  onClick={handleAddToCart} className="flex items-center">
+      <span  className="material-symbols-outlined">
+shopping_bag
+</span>
+</button>
     </div>
   );
 };

@@ -3,6 +3,7 @@
 import React, { useState, useRef, useEffect, }  from 'react';
 import axios from 'axios';
 import { Link,useNavigate } from 'react-router-dom';
+import { useCart } from '../context/CartContext';
 
 
 const Navbar = () => {
@@ -10,6 +11,7 @@ const Navbar = () => {
   const [isAccountDropdown, setIsAccountDropdown]=useState(false)
   const [isCategoryDropdownOpen, setIsCategoryDropdownOpen] = useState(false);
   const [isSearchActive,setIsSearchActive]= useState(false);
+  const { cartCount } = useCart();
   const navigate=useNavigate();
   const apiUrl = import.meta.env.VITE_BASE_URL
   const handleCartClick = () => {
@@ -136,8 +138,14 @@ const Navbar = () => {
               <input type="text" placeholder="Search..." className="border rounded-md p-2 absolute left-0 mt-2 w-48" />
             )}
           </div>
+          <div className='relative'>
           <span onClick= {handleCartClick} className="material-icons cursor-pointer">shopping_cart</span>
-          
+          {cartCount > 0 && (
+          <span className="absolute top-0 right-0 transform translate-x-1/2 -translate-y-1/2 bg-red-500 text-white text-xs font-bold rounded-full h-5 w-5 flex items-center justify-center">
+            {cartCount}
+          </span>
+        )}
+        </div>
           <span className="material-icons">favorite</span>
         </div>
 

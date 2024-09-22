@@ -7,7 +7,7 @@ const ProductCard =({product,category}) =>{
     const handleClick = () => {
         navigate(`/${category}`); // Navigate to the corresponding category page
       };
-    
+      
     return(
         <div className="border rounder-lg overflow-hidden shadow-lg hover:shadow-xl transition-shadow duration-300 cursor-pointer">
             <img src={product.images[0]} className="w-full h-49 object-cover"   onClick={handleClick}/>

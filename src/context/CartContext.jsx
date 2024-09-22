@@ -7,6 +7,7 @@ export const CartProvider = ({children})=>{
     const [cart, setCart] = useState({ items: [] });
     const [loading, setLoading] = useState(true);
     const [notification, setNotification] = useState('');
+   
     const apiUrl= import.meta.env.VITE_BASE_URL 
 
     useEffect(()=>{
@@ -30,7 +31,7 @@ export const CartProvider = ({children})=>{
     setCart({ items: response.data.items || [] });
 } catch (error) {
         console.error('Error fetching cart:', error);
-        setCart({ items: [] });
+        setCart({ items:  [] });
          }
          finally {
             setLoading(false); // Set loading to false after the data has been fetched
@@ -38,7 +39,7 @@ export const CartProvider = ({children})=>{
         }
         fetchCart();
     },[])
-
+    const cartCount = cart.items.reduce((total, item) => total + item.quantity, 0);
     const addToCart = async (product) => {
 
         const token = localStorage.getItem('customertoken');
@@ -116,7 +117,7 @@ const updateCartQuantity = async(itemId,newQuantity) => {
 }
 
     return (
-        <CartContext.Provider value={{cart,addToCart,loading,removeFromCart,updateCartQuantity,notification}}>
+        <CartContext.Provider value={{cart,addToCart,loading,removeFromCart,updateCartQuantity,notification,cartCount}}>
             {children}
         </CartContext.Provider>
     )
