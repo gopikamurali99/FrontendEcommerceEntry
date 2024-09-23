@@ -275,6 +275,7 @@ const Order = () => {
                             <span>Rs. {totalAmount.toFixed(2)}</span>
                         </p>
                     </div>
+                    <button type="submit" className="w-full bg-black text-white py-2 rounded-md mt-8">Proceed to pay</button>
                 </div>
                 
                 <div className="col-span-12">
