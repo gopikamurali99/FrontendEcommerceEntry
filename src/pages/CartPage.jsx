@@ -1,11 +1,13 @@
 import React, { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom'
 import Navbar from '../Components/Navbar';
 import { useCart } from '../context/CartContext';
 import { useNavigate } from 'react-router-dom';
 import Footer from '../Components/footer';
+import { loadStripe } from '@stripe/stripe-js';
 
 const CartPage = () => {
-  const { cart, loading, removeFromCart,updateCartQuantity } = useCart();
+  const { cart, loading, removeFromCart,updateCartQuantity,clearCart } = useCart();
   
   // State to track selected items
   const [selectedItems, setSelectedItems] = useState([]);
@@ -55,11 +57,42 @@ const CartPage = () => {
   const handleQuantityChange = (itemId, newQuantity) => {
     updateCartQuantity(itemId, newQuantity); // Call the function from CartContext
   };
-  const handleProceedToCheckout = () => {
-    // Navigate to the order-placing page with selected items
+  const stripePromise = loadStripe('pk_test_51Q2YOoBT1nUGxwBybO2jUFNsd1JzFD5huTgbMaIDXKb02TyRvI65JgwTZoNoVHOTEJV2Li9X0mwrqEiGPBnsf6Bn003y44uliW');
+
+  const handleProceedToCheckout = async () => {
+    const stripe = await stripePromise;
+
     const selectedCartItems = cart.items.filter(item => selectedItems.includes(item._id));
-    navigate('/order', { state: { selectedItems: selectedCartItems, totalAmount } });
-  };
+    const userId = localStorage.getItem('userId');
+    const response = await fetch('http://localhost:3000/customer/checkoutsession', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        items: selectedCartItems,  // Send selected cart items
+        userId: userId,            // Send the retrieved userId
+      }),
+    });
+  
+    const data = await response.json();
+    
+    if (response.ok) {
+      // Redirect to Stripe Checkout
+      const sessionId = data.id;
+      console.log("Session ID:", sessionId);
+      localStorage.setItem('sessionId', sessionId);
+      await stripe.redirectToCheckout({ sessionId: sessionId });
+    } else {
+      console.error("Error creating checkout session:", data.error);
+    } 
+  }; 
+
+ 
+
+
+
+
   return (
     <div>
       <Navbar />
@@ -67,6 +100,7 @@ const CartPage = () => {
         <h2 className="text-2xl font-bold mb-4">Cart</h2>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
           <div>
+          
             {Array.isArray(cart.items) && cart.items.length > 0 ? (
               cart.items.map((item) => (
                 <div key={item._id} className="flex items-center mb-4">
@@ -77,13 +111,16 @@ const CartPage = () => {
                     onChange={() => handleSelectItem(item._id)} // Toggle item selection
                     className="form-checkbox h-5 w-5 text-gray-500 mr-4"
                   />
+                  <Link to={`/product/${item._id}`}>
                   <img
                     src={item.product.images[0]}
                     alt={item.product.name}
                     className="w-20 h-20 object-cover mr-4"
                   />
+                  </Link>
                   <div>
                     <h3 className="text-lg font-bold">{item.product.name}</h3>
+                    <p className="text-gray-700">Size: {item.sizes}</p>
                     <p className="text-gray-700">Rs. {(item.product.price || 0).toFixed(2)}</p>
                    
                     <div className="flex items-center mt-2">
@@ -120,6 +157,7 @@ const CartPage = () => {
                     Remove
                   </button>
                 </div>
+               
               ))
             ) : (
               <p>Your cart is empty</p>
@@ -142,6 +180,9 @@ const CartPage = () => {
             <button className="bg-blue-500 text-white py-2 px-4 rounded w-full" onClick={handleProceedToCheckout}>
               Proceed to Checkout
             </button>
+            <button className="bg-red-500 text-white py-2 px-4 rounded w-full mb-2 mt-10" onClick={clearCart}>
+                Clear Cart
+              </button>
           </div>
         </div>
       </div>

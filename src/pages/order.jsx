@@ -1,12 +1,14 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import Navbar from '../Components/Navbar';
-import { useLocation } from 'react-router-dom';
+import { useLocation,useNavigate } from 'react-router-dom';
 import Footer from '../Components/footer';
+import {jwtDecode} from 'jwt-decode'
 
 const Order = () => {
     const [addresses, setAddresses] = useState([]);
     const [paymentMethod, setPaymentMethod] = useState('');
+    const navigate=useNavigate();
     const [formData, setFormData] = useState({
         name: '',
         phone: '',
@@ -51,7 +53,7 @@ const Order = () => {
             [name]: type === 'checkbox' ? checked : value,
         });
     };
-
+  
     const handleSubmit = async (e) => {
         e.preventDefault();
         const token = localStorage.getItem('customertoken');
@@ -92,6 +94,29 @@ const Order = () => {
         // Integrate your payment processing logic here
         console.log("Processing payment with method:", paymentMethod);
     };
+    const getUserIdFromToken = () => {
+        const token = localStorage.getItem('customertoken');
+        console.log('Token:', token); // Retrieve your token from storage
+        if (!token) return null; // No token found
+    
+        try {
+            const decodedToken = jwtDecode(token); // Decode the token
+            console.log('Decoded Token:', decodedToken.id); // Log decoded token for debugging
+            return decodedToken.id; // Return userId from decoded token
+        } catch (error) {
+            console.error('Error decoding token:', error);
+            return null; // Return null if there's an error
+        }
+    };
+    
+    
+    const payment = () => {
+        const userId = getUserIdFromToken();
+          // If authenticated, navigate to the cart page
+          navigate(`/proceedtopay/${userId}`, { state: { selectedItems, totalAmount } })
+       
+      };
+    
 
     return (
         <>
@@ -275,7 +300,7 @@ const Order = () => {
                             <span>Rs. {totalAmount.toFixed(2)}</span>
                         </p>
                     </div>
-                    <button type="submit" className="w-full bg-black text-white py-2 rounded-md mt-8">Proceed to pay</button>
+                    <button type="submit" onClick={payment} className="w-full bg-black text-white py-2 rounded-md mt-8">Proceed to pay</button>
                 </div>
                 
                 <div className="col-span-12">

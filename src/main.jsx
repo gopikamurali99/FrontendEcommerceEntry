@@ -1,6 +1,8 @@
 import { StrictMode } from 'react'
 import { createRoot } from 'react-dom/client'
 import { createBrowserRouter, RouterProvider } from 'react-router-dom'; // use react-router-dom
+import { loadStripe } from '@stripe/stripe-js';
+import { Elements } from '@stripe/react-stripe-js';
 import ErrorPage from './errorpage';
 import  Home from './pages/Home';
 //import Login from './pages/LoginPage';
@@ -34,6 +36,10 @@ import CustomerVerifyEmail from './pages/Customer/CustomerVerifyEmail';
 import { CartProvider } from './context/CartContext';
 import CartPage from './pages/CartPage';
 import Order from './pages/order';
+import Wishlist from './pages/wishlist';
+import PaymentPage from './pages/paymentOptions';
+import SuccessPage from './pages/paymentSuccessPage';
+import CancelPage from './pages/paymentCancel';
 
 
 const router = createBrowserRouter([
@@ -164,12 +170,34 @@ const router = createBrowserRouter([
     path: "/order",
     element: <Order/>,
   },
+  {
+    path: "/wishlist",
+    element: <Wishlist/>,
+  },
+  {
+    path: "/proceedtopay/:userId",
+    element: <PaymentPage/>,
+  },
+  {
+    path: "/paymentsuccess",
+    element: <SuccessPage/>,
+  },
+  {
+    path:"/paymentCancel",
+    element:<CancelPage/>
+  }
+
 ]);
+const stripePromise = loadStripe('your_publishable_key');
+
 
 createRoot(document.getElementById('root')).render(
   <StrictMode>
-      <CartProvider>
-      <RouterProvider router={router} />
-      </CartProvider>
-  </StrictMode>,
-)
+    <CartProvider>
+      {/* Wrap the RouterProvider in the Elements provider */}
+      <Elements stripe={stripePromise}>
+        <RouterProvider router={router} />
+      </Elements>
+    </CartProvider>
+  </StrictMode>
+);

@@ -25,6 +25,17 @@ const Navbar = () => {
       navigate('/customer/signin');
     }
   };
+  const handleWishlistClick = () => {
+    const token = localStorage.getItem('customertoken');
+    console.log('Token:', token);  // Check if the user is authenticated
+    if (token) {
+      // If authenticated, navigate to the cart page
+      navigate('/wishlist');
+    } else {
+      alert('Please signin/signup to voguevista')
+      navigate('/customer/signin');
+    }
+  };
 
   const accountDropdownRef = useRef(null);
   const categoryDropdownRef = useRef(null);
@@ -146,7 +157,7 @@ const Navbar = () => {
           </span>
         )}
         </div>
-          <span className="material-icons">favorite</span>
+          <span onClick={handleWishlistClick} className="material-icons cursor-pointer">favorite</span>
         </div>
 
         {/* Menu Icon for Small Screens */}

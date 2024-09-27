@@ -39,8 +39,8 @@ export const CartProvider = ({children})=>{
         }
         fetchCart();
     },[])
-    const cartCount = cart.items.reduce((total, item) => total + item.quantity, 0);
-    const addToCart = async (product) => {
+    const cartCount = cart.items.length;
+    const addToCart = async (product,selectedSize,removeFromWishlist) => {
 
         const token = localStorage.getItem('customertoken');
         console.log(localStorage.getItem('customertoken'));
@@ -52,7 +52,7 @@ export const CartProvider = ({children})=>{
          try {
             const response = await axios.post(`${apiUrl}/customer/cart`,
 
-                { productId: product.id, quantity: 1 }, // Data to send
+                { productId: product.id, quantity: 1 , sizes: selectedSize,}, // Data to send
                 {
                   headers: {
                     Authorization: `Bearer ${token}` // Send the JWT token in headers
@@ -61,6 +61,9 @@ export const CartProvider = ({children})=>{
               );
               setCart({ items: response.data.items || [] });
               setNotification('Item added to cart!');
+              if (removeFromWishlist) {
+                removeFromWishlist(product.id);
+              }
               setTimeout(() => setNotification(''), 3000);
               window.location.reload();
               
@@ -70,7 +73,7 @@ export const CartProvider = ({children})=>{
             console.error('Error adding to cart:', error);
          }
     }
-    // In CartContext
+   
 const removeFromCart = async (itemId) => {
     const token = localStorage.getItem('customertoken');
     if (!token) {
@@ -115,9 +118,31 @@ const updateCartQuantity = async(itemId,newQuantity) => {
         
     }
 }
+const clearCart = async () => {
+    const token = localStorage.getItem('customertoken');
+    if (!token) {
+      console.error('User not authenticated');
+      return;
+    }
+
+    try {
+      const response = await axios.delete(`${apiUrl}/customer/cart`, {
+        headers: {
+          Authorization: `Bearer ${token}`, // Send the JWT token in headers
+        },
+      });
+
+      setCart({ items: [] }); // Clear the cart in the frontend state
+      setNotification('Cart cleared successfully!');
+      setTimeout(() => setNotification(''), 3000); // Optional: Auto-hide notification
+    } catch (error) {
+      console.error('Error clearing cart:', error);
+      setNotification('Error clearing cart');
+    }
+  };
 
     return (
-        <CartContext.Provider value={{cart,addToCart,loading,removeFromCart,updateCartQuantity,notification,cartCount}}>
+        <CartContext.Provider value={{cart,addToCart,loading,removeFromCart,updateCartQuantity,notification,cartCount,setNotification,clearCart}}>
             {children}
         </CartContext.Provider>
     )

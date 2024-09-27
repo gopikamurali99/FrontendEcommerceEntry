@@ -21,10 +21,12 @@ const CustomerLogin = () => {
          password, 
         }
       );
-      const {token}= response.data;
+      const {token,userId}= response.data;
       localStorage.setItem('customertoken',token)
+      localStorage.setItem('userId',userId)
       console.log(response.data)
       console.log(token)
+      console.log(userId)
       navigate('/');
       
     }
