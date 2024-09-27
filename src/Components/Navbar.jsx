@@ -143,12 +143,7 @@ const Navbar = () => {
         
         {/* Left Icons */}
         <div className="flex items-center space-x-4">
-        <div className="relative">
-            <span onClick={toggleSearchBox} className="material-icons cursor-pointer">search</span>
-            {isSearchActive && (
-              <input type="text" placeholder="Search..." className="border rounded-md p-2 absolute left-0 mt-2 w-48" />
-            )}
-          </div>
+        
           <div className='relative'>
           <span onClick= {handleCartClick} className="material-icons cursor-pointer">shopping_cart</span>
           {cartCount > 0 && (
