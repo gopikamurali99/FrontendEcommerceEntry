@@ -12,6 +12,7 @@ const CartPage = () => {
   // State to track selected items
   const [selectedItems, setSelectedItems] = useState([]);
   const navigate = useNavigate();
+  const apiUrl= import.meta.env.VITE_BASE_URL 
 
   useEffect(() => {
     // Select all items by default when cart is loaded
@@ -64,7 +65,7 @@ const CartPage = () => {
 
     const selectedCartItems = cart.items.filter(item => selectedItems.includes(item._id));
     const userId = localStorage.getItem('userId');
-    const response = await fetch('http://localhost:3000/customer/checkoutsession', {
+    const response = await fetch(`${apiUrl}/customer/checkoutsession`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
