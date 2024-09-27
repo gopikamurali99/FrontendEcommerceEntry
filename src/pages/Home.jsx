@@ -76,7 +76,7 @@ const Home = () => {
   
   {/* Second Column: Text */}
   <div className='flex flex-col justify-center items-start p-4'>
-      <h2 className='text-3xl text-red-700  font-serif font-bold mb-4'>Categories for the Adorable Women</h2>
+      <h2 className='text-3xl text-red-700  font-serif font-bold mb-4'>Categories for the Stylish Men</h2>
       <p className='text-lg font-light text-gray-700'>
         Explore our exclusive categories curated for fashion-forward individuals. Whether you're looking for casual, formal, or trendy attire, we have something for everyone.
       </p>
@@ -102,7 +102,7 @@ const Home = () => {
   </div>
   {/* Second Column: Text */}
   <div className='flex flex-col justify-center items-start p-4'>
-      <h2 className='text-3xl text-red-700  font-serif font-bold mb-4'>Categories for the Adorable Women</h2>
+      <h2 className='text-3xl text-red-700  font-serif font-bold mb-4'>Categories for the Charming Kids</h2>
       <p className='text-lg font-light text-gray-700'>
         Explore our exclusive categories curated for fashion-forward individuals. Whether you're looking for casual, formal, or trendy attire, we have something for everyone.
       </p>
