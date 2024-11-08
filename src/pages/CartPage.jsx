@@ -66,10 +66,12 @@ const CartPage = () => {
 
     const selectedCartItems = cart.items.filter(item => selectedItems.includes(item._id));
     const userId = localStorage.getItem('userId');
+    const token = localStorage.getItem('token');
     const response = await fetch(`${apiUrl}/customer/checkoutsession`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
+        'Authorization': `Bearer ${token}`,
       },
       body: JSON.stringify({
         items: selectedCartItems,  // Send selected cart items
@@ -78,7 +80,7 @@ const CartPage = () => {
     });
   
     const data = await response.json();
-    
+    console.log(data)
     if (response.ok) {
       // Redirect to Stripe Checkout
       const sessionId = data.id;
