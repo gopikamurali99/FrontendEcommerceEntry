@@ -1,51 +1,54 @@
-import React,{useState,useEffect} from 'react';
+import React, { useState, useEffect } from 'react';
 import { useSearchParams } from 'react-router-dom';
 import Navbar from '../Components/Navbar';
 import Footer from '../Components/footer';
 
 const SuccessPage = () => {
-  // Get the session_id from the URL query parameters
   const [shippingDetails, setShippingDetails] = useState(null);
   const [searchParams] = useSearchParams();
- // const sessionId = searchParams.get('session_id'); 
-  const apiUrl= import.meta.env.VITE_BASE_URL 
-  const userId = localStorage.getItem('userId'); 
-  const sessionId = localStorage.getItem('sessionId')
-  console.log(sessionId)
+  const apiUrl = import.meta.env.VITE_BASE_URL;
+  const userId = localStorage.getItem('userId');
+  const sessionId = localStorage.getItem('sessionId');
+  
   useEffect(() => {
     const fetchCheckoutSession = async () => {
       const token = localStorage.getItem('customertoken');
       try {
         if (!sessionId) {
-          console.error('Session ID is missing from URL');
+          console.error('Session ID is missing');
           return;
         }
-        else{
-          console.log(sessionId)
-        }
-        const response = await fetch(`${apiUrl}/customer/checkoutaddress?session_id=${sessionId}`,
-          {method: 'GET',
+        
+        const response = await fetch(`${apiUrl}/customer/checkoutaddress?session_id=${sessionId}`, {
+          method: 'GET',
           headers: {
-            'Authorization': `Bearer ${token}`,  // Add the token in the Authorization header
-            'Content-Type': 'application/json'
-          }
+            'Authorization': `Bearer ${token}`,
+            'Content-Type': 'application/json',
+          },
         });
+        
+        if (!response.ok) {
+          console.error('Failed to fetch checkout session:', response.status, response.statusText);
+          return;
+        }
+
         const data = await response.json();
-
-        setShippingDetails(data.shippingDetails);
-        console.log(data.setShippingDetails)
-
-        // Clear the cart after successful payment
-        if (response.ok) {
-          const purchasedItemIds = data.shippingDetails.items.map(item => item._id); // Assuming `items` contains the purchased items
+        console.log("Fetched data:", data);
+        
+        //setShippingDetails(data.shippingDetails);
+        setShippingDetails({ ...data.shippingDetails, items: data.items });
+        
+        if (data.shippingDetails && data.shippingDetails.items) {
+          const purchasedItemIds = data.shippingDetails.items.map(item => item._id);
           clearCartAfterPayment(userId, purchasedItemIds);
         }
       } catch (error) {
         console.error('Error fetching checkout session:', error);
       }
     };
+
     if (sessionId) {
-      fetchCheckoutSession(); 
+      fetchCheckoutSession();
     }
   }, [sessionId, userId]);
 
@@ -57,8 +60,8 @@ const SuccessPage = () => {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({
-          userId: userId,       
-          itemIds: purchasedItemIds, 
+          userId: userId,
+          itemIds: purchasedItemIds,
         }),
       });
 
@@ -86,13 +89,24 @@ const SuccessPage = () => {
         <p className="text-center mb-6">Thank you for your purchase! Your payment was successful.</p>
         <div className="text-center">
           <p>Your order confirmation ID: <strong>{sessionId}</strong></p>
-          {/* Optionally, you could fetch the order details from your backend using the sessionId */}
         </div>
         <div className="mt-6">
           <h3 className="text-xl font-semibold mb-2">Shipping Details</h3>
+          
           <p><strong>Recipient Name:</strong> {shippingDetails.name}</p>
           <p><strong>Address:</strong> {shippingDetails.address.line1}, {shippingDetails.address.city}, {shippingDetails.address.state} {shippingDetails.address.postal_code}, {shippingDetails.address.country}</p>
           <p><strong>Contact:</strong> {shippingDetails.email}</p>
+        </div>
+        <div className="mt-6">
+          <h3 className="text-xl font-semibold mb-2">Order Details</h3>
+          {shippingDetails.items && shippingDetails.items.map((item, index) => (
+            <div key={index} className="mb-4">
+              <p><strong>Product Name:</strong> {item.name}</p>
+              <p><strong>Quantity:</strong> {item.quantity}</p>
+              <img src={item.images[0]} alt={item.name} className="w-32 h-32 object-cover" />
+              <p><strong>Price:</strong> ₹{item.price}</p>
+            </div>
+          ))}
         </div>
         <div className="text-center mt-6">
           <button className="bg-blue-500 text-white py-2 px-4 rounded" onClick={() => window.location.href = '/'}>

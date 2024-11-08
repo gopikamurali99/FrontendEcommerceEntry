@@ -58,7 +58,7 @@ const CartPage = () => {
   const handleQuantityChange = (itemId, newQuantity) => {
     updateCartQuantity(itemId, newQuantity); // Call the function from CartContext
   };
-  const stripePromise = loadStripe('pk_test_51Q2YOoBT1nUGxwBybO2jUFNsd1JzFD5huTgbMaIDXKb02TyRvI65JgwTZoNoVHOTEJV2Li9X0mwrqEiGPBnsf6Bn003y44uliW');
+  const stripePromise = loadStripe('pk_test_51QI9RbFJ2QB9RrlN1ONdQ3vLj3DtEaUcBwhmctKLE8ZlJBrH9Jzbbml5iUk2kazFIXodiJ7bT4bH71t6hCFcj37M00g1m6i987');
 
   const handleProceedToCheckout = async () => {
     const stripe = await stripePromise;
