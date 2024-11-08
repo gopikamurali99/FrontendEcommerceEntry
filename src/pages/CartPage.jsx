@@ -13,6 +13,7 @@ const CartPage = () => {
   const [selectedItems, setSelectedItems] = useState([]);
   const navigate = useNavigate();
   const apiUrl= import.meta.env.VITE_BASE_URL 
+  const your_publishable_key =import.meta.env.VITE_PUBLISHABLE_KEY
 
   useEffect(() => {
     // Select all items by default when cart is loaded
@@ -58,7 +59,7 @@ const CartPage = () => {
   const handleQuantityChange = (itemId, newQuantity) => {
     updateCartQuantity(itemId, newQuantity); // Call the function from CartContext
   };
-  const stripePromise = loadStripe('pk_test_51QI9RbFJ2QB9RrlN1ONdQ3vLj3DtEaUcBwhmctKLE8ZlJBrH9Jzbbml5iUk2kazFIXodiJ7bT4bH71t6hCFcj37M00g1m6i987');
+  const stripePromise = loadStripe(your_publishable_key);
 
   const handleProceedToCheckout = async () => {
     const stripe = await stripePromise;
