@@ -16,16 +16,20 @@ const Slideshow = () => {
 
   const slides = [
     {
-      img: '/images/HomeImage1.png',
-      text: 'Welcome to Vogue Vista!',
+      img: '/images/banner41.jpg',
+      
     },
     {
-      img: '/images/Homeimage2.png',
-      text: 'Discover Amazing Products!',
+      img: '/images/Banner2.webp',
+      
     },
     {
-      img: '/images/Homeimage3.png',
-      text: 'Shop Now and Enjoy Discounts!',
+      img: '/images/banner5.jpg',
+      
+    },
+    {
+      img: '/images/banner3.webp',
+      
     },
   ];
 
@@ -35,7 +39,7 @@ const Slideshow = () => {
         {slides.map((slide, index) => (
           <div key={index} className="relative">
             <img src={slide.img} alt={`Slide ${index + 1}`} className="w-full h-auto object-cover" />
-            <div className="absolute inset-0 bg-black bg-opacity-50 flex items-center justify-center">
+            <div className="absolute inset-0 flex items-center justify-center">
               <h2 className="text-white text-4xl font-bold text-center px-4">{slide.text}</h2>
             </div>
           </div>

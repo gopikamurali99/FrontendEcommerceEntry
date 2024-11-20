@@ -100,7 +100,7 @@ const CartPage = () => {
   return (
     <div>
       <Navbar />
-      <div className="container mx-auto py-8">
+      <div className="container mx-auto p-10">
         <h2 className="text-2xl font-bold mb-4">Cart</h2>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
           <div>
@@ -113,7 +113,7 @@ const CartPage = () => {
                     type="checkbox"
                     checked={selectedItems.includes(item._id)} // Control checkbox state
                     onChange={() => handleSelectItem(item._id)} // Toggle item selection
-                    className="form-checkbox h-5 w-5 text-gray-500 mr-4"
+                    className="form-checkbox h-5 w-5 text-gray-500 mr-4 accent-black"
                   />
                   <Link to={`/product/${item._id}`}>
                   <img
@@ -156,7 +156,7 @@ const CartPage = () => {
                   </div>
                   <button
                     onClick={() => removeFromCart(item._id)} // Call removeFromCart when clicked
-                    className="bg-red-500 text-white py-1 px-2 rounded ml-auto"
+                    className="bg-yellow-500 text-white py-1 px-2 rounded ml-auto"
                   >
                     Remove
                   </button>
@@ -181,10 +181,10 @@ const CartPage = () => {
               <span>Total:</span>
               <span>Rs. {totalAmount.toFixed(2)}</span>
             </div>
-            <button className="bg-blue-500 text-white py-2 px-4 rounded w-full" onClick={handleProceedToCheckout}>
+            <button className="bg-black text-white py-2 px-2 rounded w-full" onClick={handleProceedToCheckout}>
               Proceed to Checkout
             </button>
-            <button className="bg-red-500 text-white py-2 px-4 rounded w-full mb-2 mt-10" onClick={clearCart}>
+            <button className="bg-yellow-500 text-white py-2 px-2 rounded w-full mb-2 mt-10" onClick={clearCart}>
                 Clear Cart
               </button>
           </div>

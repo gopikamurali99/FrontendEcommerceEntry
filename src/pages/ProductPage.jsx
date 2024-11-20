@@ -135,7 +135,7 @@ const handleRelatedProductClick = (relatedProductId) => {
             {/* Action Buttons */}
             <div className="mt-4">
               <button
-                className="bg-blue-500 text-white py-2 px-4 rounded mr-2"
+                className="bg-black text-white py-2 px-4 rounded mr-2"
                 onClick={() =>{
                   if (!selectedSize) {
                     setNotification('Please select a size'); // Show message if no size selected
@@ -167,7 +167,7 @@ const handleRelatedProductClick = (relatedProductId) => {
                     image: product.mainImage || product.images[0],
                     
               },selectedSize)
-              }}className="bg-gray-200 py-2 px-4 rounded">
+              }}className="bg-yellow-500 py-2 px-4 rounded">
                 Add to Wishlist
               </button>
               {notification && <div className="notification text-red-600 mt-7">{notification}</div>}

@@ -40,6 +40,8 @@ export const CartProvider = ({children})=>{
         fetchCart();
     },[])
     const cartCount = cart.items.length;
+    console.log("Cart items:", cart.items);
+
     const addToCart = async (product,selectedSize,removeFromWishlist) => {
 
         const token = localStorage.getItem('customertoken');
@@ -48,7 +50,27 @@ export const CartProvider = ({children})=>{
                 console.error('User not authenticated');
                 return;
             }
+            const existingItem = cart.items.find(item => item.product._Id === product._id && item.sizes.includes(selectedSize));
+            console.log("Existing item found:", existingItem);  
+            if (existingItem) {
+                console.log("Item already in cart. Showing confirmation prompt...");
+               
+                const userConfirmed = window.confirm(
+                    "The item is already in the cart. Do you want to update the quantity?"
+                );
                 
+                if (userConfirmed) {
+                    // If user confirms, call the updateCartQuantity function
+                    await updateCartQuantity(existingItem._id, existingItem.quantity + 1);
+                    setNotification('Item quantity updated in cart!');
+                    setTimeout(() => setNotification(''), 3000);
+                    return; // Exit the function to prevent adding as a new item
+                } else {
+                    return; // Exit without adding or updating the item
+                }
+            }
+        
+            
          try {
             const response = await axios.post(`${apiUrl}/customer/cart`,
 
@@ -65,7 +87,7 @@ export const CartProvider = ({children})=>{
                 removeFromWishlist(product.id);
               }
               setTimeout(() => setNotification(''), 3000);
-              window.location.reload();
+             window.location.reload();
               
              
               

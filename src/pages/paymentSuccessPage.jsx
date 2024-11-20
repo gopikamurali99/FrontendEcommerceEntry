@@ -84,13 +84,20 @@ const SuccessPage = () => {
   return (
     <div>
       <Navbar />
-      <div className="container mx-auto py-8">
+      <div className="container mx-auto p-10">
+        <div className='text-center mb-6'>
+          <img src='./images/check_mark.png' alt="checkmark image" 
+          className="w-16 h-16 mx-auto" />
+
+        </div>
         <h2 className="text-3xl font-bold mb-4 text-center">Payment Successful</h2>
         <p className="text-center mb-6">Thank you for your purchase! Your payment was successful.</p>
         <div className="text-center">
           <p>Your order confirmation ID: <strong>{sessionId}</strong></p>
         </div>
-        <div className="mt-6">
+        <div className='grid grid-cols-1 lg:grid-cols-2 gap-8'>
+          <div>
+          <div className="mt-6">
           <h3 className="text-xl font-semibold mb-2">Shipping Details</h3>
           
           <p><strong>Recipient Name:</strong> {shippingDetails.name}</p>
@@ -109,10 +116,20 @@ const SuccessPage = () => {
           ))}
         </div>
         <div className="text-center mt-6">
-          <button className="bg-blue-500 text-white py-2 px-4 rounded" onClick={() => window.location.href = '/'}>
+          <button className="bg-black text-white py-2 px-4 rounded" onClick={() => window.location.href = '/'}>
             Continue Shopping
           </button>
         </div>
+          </div>
+          <div className="flex justify-center items-center">
+      <img 
+        src="./images/successful.avif" 
+        alt="Right Side Illustration" 
+        className="w-full h-auto rounded-lg " 
+      />
+    </div>
+        </div>
+        
       </div>
       <Footer />
     </div>

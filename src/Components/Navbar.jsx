@@ -98,7 +98,7 @@ const Navbar = () => {
 
 
   return (
-    <header className="bg-white text-black sticky top-0 z-50 shadow-md">
+    <header className="bg-white  text-black sticky top-0 z-50 shadow-md">
     <div className="container mx-auto flex justify-between items-center p-4">
       <div>
           <Link to="/"><img src="/images/logo-no-background.png" alt="logo" className='h-10' /></Link>
@@ -106,6 +106,8 @@ const Navbar = () => {
 
         {/* Center Navigation Links */}
         <nav className="hidden md:flex space-x-8">
+        <button onClick={toggleAccountDropdown} className='hover:text-gray-600'> Home</button>
+        <button onClick={toggleAccountDropdown} className='hover:text-gray-600'> Shop</button>
           <div className='relative' ref={accountDropdownRef}>
             <button onClick={toggleAccountDropdown} className='hover:text-gray-600'> Account</button>
             {isAccountDropdown && (
@@ -145,6 +147,9 @@ const Navbar = () => {
         <div className="flex items-center space-x-4">
         
           <div className='relative'>
+          <span class="material-icons">
+search
+</span>
           <span onClick= {handleCartClick} className="material-icons cursor-pointer">shopping_cart</span>
           {cartCount > 0 && (
           <span className="absolute top-0 right-0 transform translate-x-1/2 -translate-y-1/2 bg-red-500 text-white text-xs font-bold rounded-full h-5 w-5 flex items-center justify-center">
@@ -153,6 +158,9 @@ const Navbar = () => {
         )}
         </div>
           <span onClick={handleWishlistClick} className="material-icons cursor-pointer">favorite</span>
+          <span class="material-icons">
+account_circle
+</span>
         </div>
 
         {/* Menu Icon for Small Screens */}
