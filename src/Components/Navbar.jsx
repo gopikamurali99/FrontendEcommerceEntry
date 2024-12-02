@@ -11,6 +11,8 @@ const Navbar = () => {
   const [isAccountDropdown, setIsAccountDropdown]=useState(false)
   const [isCategoryDropdownOpen, setIsCategoryDropdownOpen] = useState(false);
   const [isSearchActive,setIsSearchActive]= useState(false);
+  const [isUserDropDown, setIsUserDropdown] = useState(false)
+  const [user, setUser] = useState(null);
   const { cartCount } = useCart();
   const navigate=useNavigate();
   const apiUrl = import.meta.env.VITE_BASE_URL
@@ -39,6 +41,7 @@ const Navbar = () => {
 
   const accountDropdownRef = useRef(null);
   const categoryDropdownRef = useRef(null);
+  const userDropdownRef = useRef(null);
 
   useEffect(() => {
     const handleClickOutside = (event) => {
@@ -54,8 +57,32 @@ const Navbar = () => {
       ) {
         setIsCategoryDropdownOpen(false);
       }
+      if (
+        userDropdownRef.current &&
+        !userDropdownRef.current.contains(event.target)
+      ) {
+        setIsUserDropdown(false);
+      }
     };
+    const fetchUser = async () => {
+      const token = localStorage.getItem('customertoken');
+      const id = localStorage.getItem('userId')
+      if (!token) return; // Skip if no token
 
+      try {
+
+        
+          // Fetch user data or parse token payload if the name is included
+          const { data } = await axios.get(`${apiUrl}/customer/profile/${id}`, {
+              headers: { Authorization: `Bearer ${token}` },
+          });
+          setUser(data); // e.g., { name: 'Alex', email: 'alex@example.com' }
+      } catch (error) {
+          console.error('Failed to fetch user profile:', error);
+      }
+  };
+
+  fetchUser();
     
     // Bind the event listener
     document.addEventListener('mousedown', handleClickOutside);
@@ -63,6 +90,8 @@ const Navbar = () => {
       // Clean up the event listener
       document.removeEventListener('mousedown', handleClickOutside);
     };
+
+    
   }, [accountDropdownRef, categoryDropdownRef]);
 
   const toggleMenu = () => {
@@ -74,10 +103,16 @@ const Navbar = () => {
   const toggleCategoryDropdown = () =>{
     setIsCategoryDropdownOpen((prev) => !prev);
   }
+  const toggleUsrDropdown = () =>{
+    setIsUserDropdown((prev) => !prev);
+  }
   
   const toggleSearchBox = () => {
     setIsSearchActive(!isSearchActive);
   };
+  const homeIcon = async() =>{
+    navigate('/');
+  }
 
   const handleLogout = async()=>{
     try{
@@ -106,7 +141,7 @@ const Navbar = () => {
 
         {/* Center Navigation Links */}
         <nav className="hidden md:flex space-x-8">
-        <button onClick={toggleAccountDropdown} className='hover:text-gray-600'> Home</button>
+        <button onClick={homeIcon} className='hover:text-gray-600'> Home</button>
         <button onClick={toggleAccountDropdown} className='hover:text-gray-600'> Shop</button>
           <div className='relative' ref={accountDropdownRef}>
             <button onClick={toggleAccountDropdown} className='hover:text-gray-600'> Account</button>
@@ -158,9 +193,34 @@ search
         )}
         </div>
           <span onClick={handleWishlistClick} className="material-icons cursor-pointer">favorite</span>
-          <span class="material-icons">
-account_circle
-</span>
+          <div className='relative' ref={userDropdownRef}>
+         <button onClick={toggleUsrDropdown}>
+         {user ? (
+      <div
+        className="bg-orange-500 text-white font-bold rounded-full h-8 w-8 flex items-center justify-center"
+        title={user.name} // Optional tooltip to show the full name
+      >
+        {user?.name?.charAt(0)?.toUpperCase()} {/* Display first letter */}
+      </div>
+    ) : (
+      <span className="material-icons">
+        account_circle
+      </span>
+    )}
+             </button> 
+{isUserDropDown && (
+              <div className='absolute bg-white shadow-md mt-2 rounded-md w-48'>
+                <Link to="/customer/signin" className="block px-4 py-2 hover:bg-gray-200">Sign In/Sign Up</Link>
+                <Link to="/profile" className="block px-4 py-2 hover:bg-gray-200">Profile</Link>
+                <Link to="/order" className="block px-4 py-2 hover:bg-gray-200">Your Order</Link>
+                <Link to="/sellerlogin" className="block px-4 py-2 hover:bg-gray-200">Seller Account</Link>
+                <span onClick={handleLogout} style={{ cursor: 'pointer', color: 'blue' }}>
+                Logout
+            </span>
+              </div>
+
+            )}
+            </div>
         </div>
 
         {/* Menu Icon for Small Screens */}
