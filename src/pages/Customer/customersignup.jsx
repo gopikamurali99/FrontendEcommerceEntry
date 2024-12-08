@@ -7,6 +7,7 @@ const CustomerSignUp = () => {
 const [Name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [error,setError] = useState(null);
   const apiUrl = import.meta.env.VITE_BASE_URL
 
   const handleSubmit = async (e) => {
@@ -22,7 +23,8 @@ const [Name, setName] = useState('');
   }
     catch(error){
       if(error.response){
-        setError(error.response.data.message);
+        console.log(error.response);
+        setError(error.response?.data?.message || 'An error occurred');
       }
       else{
         setError('server error.please try again later');
@@ -31,9 +33,7 @@ const [Name, setName] = useState('');
 
     }
    
-    console.log('Name:',Name)
-    console.log('Email:', email);
-    console.log('Password:', password);
+    
   };
 
   return (

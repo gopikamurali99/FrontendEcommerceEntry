@@ -71,6 +71,7 @@ const Order = () => {
             ))
         )}
     </div>
+    <Footer/>
         </>
     )         
 }

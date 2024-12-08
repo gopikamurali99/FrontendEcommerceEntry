@@ -9,7 +9,7 @@ const ProductCard =({product,category}) =>{
       };
       
     return(
-        <div className=" overflow-hidden  hover:shadow-xl transition-shadow duration-300 cursor-pointer">
+        <div className="w-[calc(100%/4-0.75rem)] overflow-hidden hover:shadow-xl transition-shadow duration-300 cursor-pointer">
             <img src={product.images[0]} className="w-full h-49 object-cover"   onClick={handleClick}/>
             <div className="=p-4">
                 <div className="p-4 flex flex-col items-center"><h3 className="text-lg font-bold mt-2">{product.name}</h3></div>

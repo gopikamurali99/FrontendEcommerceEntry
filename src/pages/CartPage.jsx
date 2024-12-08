@@ -25,7 +25,7 @@ const CartPage = () => {
 
   if (loading) {
     return (
-      <div>
+      <div className="min-h-screen bg-white text-black dark:bg-gray-900 dark:text-white">
         <Navbar />
         <div className="container mx-auto py-8">
           <h2 className="text-2xl font-bold mb-4">Loading your cart...</h2>

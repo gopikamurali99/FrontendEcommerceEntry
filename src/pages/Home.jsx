@@ -31,7 +31,7 @@ const Home = () => {
   },[])
   
   return (
-    <div>
+    <div className="min-h-screen bg-white text-black dark:bg-gray-900 dark:text-white">
       <Navbar />
       <main >
         <HomeSlideshow/>
@@ -51,7 +51,7 @@ const Home = () => {
 </div>
 <section className='mt-8 p-10' id='womenCategory'>
           <h2 className='text-2xl font-bold text-center'>Women category</h2>
-           <div className='grid grid-cols-1 md:grid-cols-4 gap-3 mt-4'>
+           <div className='flex flex-wrap gap-3 mt-4'>
             {womenProducts.slice(0, 4).map(product =>(
               <ProductCard key={product.id} product={product} category="women"/>
             
@@ -83,7 +83,7 @@ const Home = () => {
 </section>
         <section className='mt-8' id='menCategory'>
           <h2 className='text-2xl font-bold text-center'>Men category</h2>
-           <div className='grid grid-cols-1 md:grid-cols-4 gap-4 mt-4'>
+           <div className='flex flex-wrap gap-3 mt-4'>
             {menProducts.map(product =>(
               <ProductCard key={product.id} product={product} category="men"/>
             
@@ -106,7 +106,7 @@ const Home = () => {
 </section>
         <section className='mt-8' id='kidsCategory'>
           <h2 className='text-2xl font-bold text-center'>Kids category</h2>
-           <div className='grid grid-cols-1 md:grid-cols-4 gap-4 mt-4'>
+           <div className='flex flex-wrap gap-3 mt-4'>
             {KidsProducts.map(product =>(
               <ProductCard key={product.id} product={product} category="kids"/>
             

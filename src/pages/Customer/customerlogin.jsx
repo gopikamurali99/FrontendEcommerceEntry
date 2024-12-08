@@ -45,6 +45,9 @@ const CustomerLogin = () => {
 
   return (
     <>
+    <div className="min-h-screen bg-white text-black dark:bg-gray-900 dark:text-white">
+
+    
     <Navbar/>
     <div className="grid grid-cols-1 md:grid-cols-2 h-screen">
     <div className="hidden md:block"
@@ -99,6 +102,7 @@ const CustomerLogin = () => {
           Don't have an account? <Link to="/customer/signup" className="text-blue-500 hover:text-blue-600">Register</Link>
         </div>
       </div>
+    </div>
     </div>
     </div>
     <Footer/>
