@@ -2,7 +2,7 @@
 
 import React from 'react';
 import { Link, Route, Routes } from 'react-router-dom';
-import AddProduct from './AddProduct';
+import AddProduct from './Addproduct';
 import ViewApprovedProducts from './ApprovedProducts';
 import UpdateProduct from './updateProduct';
 import Profile from './Profile';

@@ -25,7 +25,7 @@ import SellerLogin from './pages/seller/sellerlogin';
 import SellerRegister from './pages/seller/sellerSignup';
 import VerifyEmail from './pages/Admin/AdminVerifyEmail';
 import VerifyEmailSeller from './pages/seller/VerifyEmail';
-import AddProduct from './pages/seller/AddProduct';
+import AddProduct from './pages/seller/Addproduct';
 import ViewApprovedProducts from './pages/seller/ApprovedProducts';
 import SellerDashboard from './pages/seller/SellerDashboard';
 import Logout from './Components/sellerlogout';
