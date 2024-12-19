@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link, Route, Routes } from 'react-router-dom';
 
-import AddProduct from '../pages/seller/AddProduct';
+import AddProduct from '../pages/seller/Addproduct';
 import ViewApprovedProducts from '../pages/seller/ApprovedProducts';
 import Profile from '../pages/seller/Profile';
 import Allproducts from '../pages/seller/Allproduct';
