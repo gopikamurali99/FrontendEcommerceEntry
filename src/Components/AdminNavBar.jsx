@@ -11,18 +11,18 @@ const AdminNavBar = () => {
 return (
     <>
      
-      <div className="container mx-auto py-8">
-      <div className="flex">
+      <div className="container mx-auto py-8 bg-black h-full">
+      <div className="flex bg-black h-full">
           {/* Sidebar */}
-          <aside className="w-1/4 bg-gray-200 p-4 rounded-lg">
+          <aside className="h-full bg-black text-neutral-50 p-4 rounded-lg">
             <h2 className="text-xl font-bold mb-4">Admin Dashboard</h2>
             <nav>
               <ul className="space-y-2">
-                <li><Link to="/admin/users" className="block text-blue-600">User Management</Link></li>
-                <li><Link to="/admin/products" className="block text-blue-600">Product Management</Link></li>
-                <li><Link to="/admin/orders" className="block text-blue-600">Order Management</Link></li>
-                <li><Link to="/admin/analytics" className="block text-blue-600">Analytics</Link></li>
-                <li><Link to="/admin/pendingapproval" className="block text-blue-600">Approval Awaiting Products</Link></li>
+                <li><Link to="/admin/users" className="block text-neutral-50">User Management</Link></li>
+                <li><Link to="/admin/products" className="block text-neutral-50">Product Management</Link></li>
+                <li><Link to="/admin/orders" className="block text-neutral-50">Order Management</Link></li>
+                <li><Link to="/admin/analytics" className="block text-neutral-50">Analytics</Link></li>
+                <li><Link to="/admin/pendingapproval" className="block text-neutral-50">Approval Awaiting Products</Link></li>
                 <li><AdminLogout /></li>
               </ul>
             </nav>

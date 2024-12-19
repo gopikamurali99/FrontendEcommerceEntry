@@ -8,6 +8,7 @@ import Analytics from '../Admin/Analytics';
 import ApprovalManagement from './ProductApproval';
 import AdminLogout from '../../Components/AdminLogout';
 import Navbar from '../../Components/Navbar';
+import AdminNavbarTop from '../../Components/AdminNavBarTop';
 import Footer from '../../Components/footer';
 
 const AdminPage = () => {
@@ -48,19 +49,19 @@ const AdminPage = () => {
 
   return (
     <>
-      <Navbar />
+      <AdminNavbarTop/>
       <div className="container mx-auto py-8">
         <div className="grid grid-cols-12 gap-4">
           {/* Sidebar */}
-          <aside className="col-span-3 bg-gray-200 p-4 rounded-lg">
+          <aside className="col-span-3 bg-black text-neutral-50 p-4 rounded-lg ">
             <h2 className="text-xl font-bold mb-4">Admin Dashboard</h2>
             <nav>
               <ul className="space-y-2">
-                <li><Link to="/admin/users" className="block text-blue-600">User Management</Link></li>
-                <li><Link to="/admin/products" className="block text-blue-600">Product Management</Link></li>
-                <li><Link to="/admin/orders" className="block text-blue-600">Order Management</Link></li>
-                <li><Link to="/admin/analytics" className="block text-blue-600">Analytics</Link></li>
-                <li><Link to="/admin/pendingapproval" className="block text-blue-600">Approval Awaiting Products</Link></li>
+                <li><Link to="/admin/users" className="block text-neutral-50">User Management</Link></li>
+                <li><Link to="/admin/products" className="block text-neutral-50">Product Management</Link></li>
+                <li><Link to="/admin/orders" className="block text-neutral-50">Order Management</Link></li>
+                <li><Link to="/admin/analytics" className="block text-neutral-50">Analytics</Link></li>
+                <li><Link to="/admin/pendingapproval" className="block text-neutral-50">Approval Awaiting Products</Link></li>
                 <li><AdminLogout /></li>
               </ul>
             </nav>

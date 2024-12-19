@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import Navbar from '../../Components/Navbar';
 import AdminNavBar from '../../Components/AdminNavBar';
+import AdminNavbarTop from '../../Components/AdminNavBarTop';
 import Footer from '../../Components/footer';
 
 const ProductManagement = () => {
@@ -41,7 +42,7 @@ const ProductManagement = () => {
 
   return (
     <div>
-       <Navbar/>
+      <AdminNavbarTop/>
       
       <div className="grid grid-cols-12 gap-4">
         <div className='col-span-3 bg-gray-200 p-4 rounded-lg'>

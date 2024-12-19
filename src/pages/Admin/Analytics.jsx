@@ -1,7 +1,7 @@
 // src/Pages/Analytics.js
 
 import React from 'react';
-import Navbar from '../../Components/Navbar';
+import AdminNavbarTop from '../../Components/AdminNavBarTop';
 import AdminNavBar from '../../Components/AdminNavBar';
 import Footer from '../../Components/footer';
 
@@ -13,7 +13,7 @@ const Analytics = () => {
 
   return (
     <div>
-      <Navbar/>
+      <AdminNavbarTop/>
       <div className="grid grid-cols-12 gap-4">
         <div className='col-span-3 bg-gray-200 p-4 rounded-lg'>
       <AdminNavBar/>

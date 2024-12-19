@@ -1,5 +1,6 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
+
 import axios from 'axios'
 
 const AdminLogout=()=>{
@@ -25,7 +26,7 @@ const AdminLogout=()=>{
 return(
 <>
 <button onClick={handleLogout}
-  className="bg-red-500 hover:bg-red-600 text-white font-bold py-2 px-4 rounded-md">Logout</button>
+  className="bg-yellow-500 hover:bg-yellow-600 text-white font-bold py-2 px-4 rounded-md">Logout</button>
 </>
 )
 }

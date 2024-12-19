@@ -4,7 +4,7 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import SellerNavbar from '../../Components/SellerNavbar';
 import SellerSideNav from '../../Components/sellerSideNav';
-const ApprovedProducts = () => {
+const Allproducts = () => {
   const [approvedProducts, setApprovedProducts] = useState([]);
   const [error, setError] = useState('');
   const apiUrl = import.meta.env.VITE_BASE_URL;
@@ -14,7 +14,7 @@ const ApprovedProducts = () => {
     const fetchApprovedProducts = async () => {
       try {
         const token = localStorage.getItem('token');
-        const response = await axios.get(`${apiUrl}/seller/approvedproducts`, {
+        const response = await axios.get(`${apiUrl}/seller/getproducts`, {
           headers: {
             Authorization: `Bearer ${token}`,
           },
@@ -46,7 +46,7 @@ const ApprovedProducts = () => {
 
         {/* Main Content */}
         <div className="flex-grow p-4">
-          <h2 className="text-2xl font-bold mb-4">Approved Products</h2>
+          <h2 className="text-2xl font-bold mb-4">All Uploaded Products</h2>
           {error && <p className="text-red-500 mb-4">{error}</p>}
           {approvedProducts.length > 0 ? (
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -79,4 +79,4 @@ const ApprovedProducts = () => {
   );
 };
 
-export default ApprovedProducts;
+export default Allproducts;

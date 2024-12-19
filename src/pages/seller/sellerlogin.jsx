@@ -24,21 +24,27 @@ const SellerLogin = () => {
       );
 
       const { token } = response.data;
+      const {userId} = response.data;
+
+      localStorage.setItem('seller',userId)
 
       // Store the token in local storage
       localStorage.setItem('token', token);
-      
+      console.log(userId)
 
-      console.log(response.data)
+      console.log(response)
+
       console.log(token)
-      navigate('/seller');
+      navigate('/seller/approvedproduct');
     }
     catch(error){
       if(error.response){
         setError(error.response.data.message);
+        console.log(error)
       }
       else{
         setError('server error.Please try again later')
+        console.log(error)
       }
     }
     console.log('Email:', email);
