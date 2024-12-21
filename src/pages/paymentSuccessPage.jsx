@@ -2,10 +2,11 @@ import React, { useState, useEffect } from 'react';
 import { useSearchParams } from 'react-router-dom';
 import Navbar from '../Components/Navbar';
 import Footer from '../Components/footer';
+import { useCart } from '../context/CartContext';
 
 const SuccessPage = () => {
   const [shippingDetails, setShippingDetails] = useState(null);
-  
+   const { clearCart } = useCart();
   const [purchasedItemIds, setPurchasedItemIds] = useState([]);
   const [paymentSuccess, setPaymentSuccess] = useState(false);
   const [searchParams] = useSearchParams();
@@ -58,35 +59,28 @@ const SuccessPage = () => {
     }
   }, [sessionId, userId]);
 
-  const clearCartAfterPayment = async (userId, purchasedItemIds) => {
-    try {
-      const response = await fetch(`${apiUrl}/customer/cart`, {
-        method: 'DELETE',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          userId: userId,
-          itemIds: purchasedItemIds,
-        }),
-      });
+  const handlePayment = async () => {
+    // Simulate a payment success scenario
+    const paymentSuccess = true; // Replace with actual payment logic
 
-      const data = await response.json();
+    if (paymentSuccess) {
+      console.log('Payment successful!');
 
-      if (response.ok) {
-        console.log('Items removed from cart:', data.message);
-      } else {
-        console.error('Error removing items from cart:', data.error);
+      try {
+        await clearCart(); // Clear the cart after payment success
+        console.log('Cart cleared successfully!');
+      } catch (error) {
+        console.error('Error clearing cart after payment:', error);
       }
-    } catch (error) {
-      console.error('Error:', error);
+    } else {
+      console.log('Payment failed.');
     }
   };
+
   useEffect(() => {
-    if (paymentSuccess && userId && purchasedItemIds) {
-      clearCartAfterPayment(userId, purchasedItemIds);
-    }
-  }, [userId, paymentSuccess, purchasedItemIds,apiUrl]);
+    // Call handlePayment on component mount (e.g., after redirection from payment gateway)
+    handlePayment();
+  }, []);
   
 
   if (!shippingDetails) {
