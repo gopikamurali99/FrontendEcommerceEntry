@@ -54,8 +54,8 @@ const SuccessPage = () => {
 
   const clearCartAfterPayment = async (userId, purchasedItemIds) => {
     try {
-      const response = await fetch(`${apiUrl}/customer/clearorderitem`, {
-        method: 'POST',
+      const response = await fetch(`${apiUrl}/customer/cart`, {
+        method: 'DELETE',
         headers: {
           'Content-Type': 'application/json',
         },
@@ -76,6 +76,12 @@ const SuccessPage = () => {
       console.error('Error:', error);
     }
   };
+  useEffect(() => {
+    if (paymentSuccess && userId && purchasedItemIds) {
+      clearCartAfterPayment(userId, purchasedItemIds);
+    }
+  }, [paymentSuccess, userId, purchasedItemIds]);
+  
 
   if (!shippingDetails) {
     return <p>Loading shipping details...</p>;
