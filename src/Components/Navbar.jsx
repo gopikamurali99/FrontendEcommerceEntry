@@ -174,7 +174,7 @@ const Navbar = () => {
                             )}
                         </button>
                         {isUserDropDown && (
-                            <div className='absolute bg-white shadow-md mt-2 rounded-md w-48'>
+                            <div className='absolute bg-white shadow-md mt-2 rounded-md w-48 right-0'>
                                 {!user ? (
                                     <>
                                         <Link to="/customer/signin" className="block px-4 py-2 hover:bg-gray-200">Sign In/Sign Up</Link>
