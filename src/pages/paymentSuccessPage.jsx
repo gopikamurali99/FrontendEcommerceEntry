@@ -80,7 +80,7 @@ const SuccessPage = () => {
     if (paymentSuccess && userId && purchasedItemIds) {
       clearCartAfterPayment(userId, purchasedItemIds);
     }
-  }, [paymentSuccess, userId, purchasedItemIds]);
+  }, [userId, purchasedItemIds]);
   
 
   if (!shippingDetails) {
