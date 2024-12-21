@@ -1,13 +1,14 @@
 import axios from "axios";
 import React,{createContext,useState,useEffect,useContext} from "react";
 
+
 const CartContext = createContext();
 
 export const CartProvider = ({children})=>{
     const [cart, setCart] = useState({ items: [] });
     const [loading, setLoading] = useState(true);
     const [notification, setNotification] = useState('');
-   
+    
     const apiUrl= import.meta.env.VITE_BASE_URL 
 
     useEffect(()=>{
@@ -48,7 +49,8 @@ export const CartProvider = ({children})=>{
         console.log(localStorage.getItem('customertoken'));
             if(!token){
                 console.error('User not authenticated');
-                return;
+                setNotification('!please signin/signup');
+                return
             }
             const existingItem = cart.items.find(item => item.product._Id === product._id && item.sizes.includes(selectedSize));
             console.log("Existing item found:", existingItem);  

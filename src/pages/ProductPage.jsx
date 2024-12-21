@@ -43,7 +43,7 @@ const ProductPage = () => {
     console.log(localStorage.getItem('customertoken'));
         if(!token){
             console.error('User not authenticated');
-            return;
+            navigate('/customer/signin');
         }
         const productId = product.id;
         const sizes = selectedSize;

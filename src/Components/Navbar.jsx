@@ -18,7 +18,7 @@ const Navbar = () => {
     const accountDropdownRef = useRef(null);
     const categoryDropdownRef = useRef(null);
     const userDropdownRef = useRef(null);
-
+    const token = localStorage.getItem('customertoken');
     // Fetch user data and manage dropdowns
     useEffect(() => {
         const handleClickOutside = (event) => {
@@ -141,7 +141,12 @@ const Navbar = () => {
 
                     {/* Cart Icon */}
                     <div className="relative">
-    <span onClick={() => navigate('/cart')} className="material-icons cursor-pointer">shopping_cart</span>
+    <span onClick={() =>{if(!token){
+          navigate('/customer/signin')
+    } else{
+        navigate('/cart')
+    }
+    } } className="material-icons cursor-pointer">shopping_cart</span>
     {cartCount > 0 && (
         <span className="absolute -top-2 -right-2 bg-red-500 text-white text-xs font-bold rounded-full h-5 w-5 flex items-center justify-center">
             {cartCount}
@@ -150,7 +155,12 @@ const Navbar = () => {
 </div>
 
                     {/* Wishlist Icon */}
-                    <span onClick={() => navigate('/wishlist')} className="material-icons cursor-pointer">favorite</span>
+                    <span onClick={() => {if(!token){
+          navigate('/customer/signin')
+    } else{
+        navigate('/wishlist')
+    }
+    } } className="material-icons cursor-pointer">favorite</span>
 
                     {/* User Profile */}
                     <div className='relative' ref={userDropdownRef}>
