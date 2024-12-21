@@ -5,6 +5,9 @@ import Footer from '../Components/footer';
 
 const SuccessPage = () => {
   const [shippingDetails, setShippingDetails] = useState(null);
+  
+  const [purchasedItemIds, setPurchasedItemIds] = useState([]);
+  const [paymentSuccess, setPaymentSuccess] = useState(false);
   const [searchParams] = useSearchParams();
   const apiUrl = import.meta.env.VITE_BASE_URL;
   const userId = localStorage.getItem('userId');
@@ -41,6 +44,9 @@ const SuccessPage = () => {
         if (data.shippingDetails && data.shippingDetails.items) {
           const purchasedItemIds = data.shippingDetails.items.map(item => item._id);
           clearCartAfterPayment(userId, purchasedItemIds);
+
+          setPurchasedItemIds(itemIds);
+          setPaymentSuccess(true);
         }
       } catch (error) {
         console.error('Error fetching checkout session:', error);
@@ -80,7 +86,7 @@ const SuccessPage = () => {
     if (paymentSuccess && userId && purchasedItemIds) {
       clearCartAfterPayment(userId, purchasedItemIds);
     }
-  }, [userId, purchasedItemIds]);
+  }, [userId, paymentSuccess, purchasedItemIds,apiUrl]);
   
 
   if (!shippingDetails) {
