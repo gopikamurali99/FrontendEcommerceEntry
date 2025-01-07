@@ -42,69 +42,61 @@ const CustomerLogin = () => {
     console.log('Password:', password);
     console.log(token)
   };
-
+  const backgroundImage = {
+    backgroundImage: "url('/images/signupbg.jpg')",
+    backgroundSize: 'cover',
+    backgroundPosition: 'center',
+    backgroundAttachment: 'fixed',
+    minHeight: '100vh', // Ensure full height even if content is less
+  width: '100%', // Optional: makes the background image fixed when scrolling
+  };
   return (
     <>
-    <div className="min-h-screen bg-white text-black dark:bg-gray-900 dark:text-white">
+   <Navbar/>
+    <div style={backgroundImage} className="py-16 flex items-center justify-center min-h-screen">
+    <div className='bg-white flex items-center shadow-lg rounded-lg overflow-hidden max-w-4xl  '>
+        <div className=' w-1/2 p-8 '>
 
-    
-    <Navbar/>
-    <div className="grid grid-cols-1 md:grid-cols-2 h-screen">
-    <div className="hidden md:block"
-       style={{
-            backgroundImage: `url(/images/customer1.avif)`,
-               backgroundSize: 'cover',
-                  backgroundPosition: 'center',
-           }}
-           />
-
-           <div className="flex justify-center items-center bg-slate-400">
-      <div className=" bg-white bg-opacity-50 p-8 rounded-lg shadow-md w-full max-w-md">
-        <h2 className="text-2xl font-bold mb-4">Login</h2>
-        {error && <p className="text-red-500">{error}</p>}
-        <form onSubmit={handleSubmit}>
-          <div className="mb-4">
-            <label htmlFor="email" className="block font-bold mb-2">
-              Email
-            </label>
-            <input
-              type="email"
-              id="email"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              className="border rounded-md px-4 py-2 w-full"
-              required
-            />
-          </div>
-          <div className="mb-4">
-            <label htmlFor="password" className="block font-bold mb-2">
-              Password
-            </label>
-            <input
-              type="password"
-              id="password"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-              className="border rounded-md px-4 py-2 w-full"
-              required
-            />
-          </div>
-          
-          <button
+        <h2 className='text-2xl font-bold mb-4'>Login to your account</h2>
+             
+            <form className=' flex flex-col' onSubmit={handleSubmit}>
+            {error && <p className="text-red-500">{error}</p>}
+                <label htmlFor="email">Email:</label>
+                <input type="email"  placeholder='enter your email id' id='email' value={email}
+              onChange={(e) => setEmail(e.target.value)} className='mb-4 px-4 py-2 border border-gray-300 rounded w-full focus:outline-none focus:ring-blue-400' />
+                <label htmlFor="email">Password:</label>
+                <input type="password" placeholder='enter password' id='pass' className='w-full px-4 py-2 border border-gray-300 focus:outline-none focus:ring-blue-400 '
+               
+                value={password}
+               
+                onChange={(e) => setPassword(e.target.value)}
+                />
+                
+                
+                   <button
             type="submit"
-            className="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded-md w-full"
+            className="bg-red-500 hover:bg-red-600 text-white font-bold py-2 px-4 rounded-md w-full mt-6"
           >
-            Login
+            SignIn
           </button>
+
+            </form>
+            
           
-        </form>
-        <div className="mt-4 text-center">
-          Don't have an account? <Link to="/customer/signup" className="text-blue-500 hover:text-blue-600">Register</Link>
+    <p className='text-sm text-gray-500 mt-4'>Don't you have an account?{" "} <Link to="/customer/signup" className="text-blue-500 hover:underline">
+              SignUp
+            </Link></p>
+        
         </div>
+       <div className='w-1/2 relative bg-gray-100 flex justify-center items-center '>
+       
+       <img src="/images/loginCustomer1.avif" alt="" className='w-full h- object-cover'/>
+      
+        
+       </div>
+        </div>
+
       </div>
-    </div>
-    </div>
-    </div>
     <Footer/>
     </>
   );
