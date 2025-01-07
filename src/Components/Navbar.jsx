@@ -102,7 +102,7 @@ const Navbar = () => {
                 {/* Navigation Links for Large Screens */}
                 <nav className="hidden md:flex space-x-8 flex-grow justify-center">
                     <button onClick={() => navigate('/')} className='hover:text-gray-600'>Home</button>
-                    <button onClick={toggleAccountDropdown} className='hover:text-gray-600'>Shop</button>
+                    
                     <div className='relative' ref={accountDropdownRef}>
                         <button onClick={toggleAccountDropdown} className='hover:text-gray-600'>Account</button>
                         {isAccountDropdown && (
