@@ -41,7 +41,7 @@ import PaymentPage from './pages/paymentOptions';
 import SuccessPage from './pages/paymentSuccessPage';
 import CancelPage from './pages/paymentCancel';
 import Allproducts from './pages/seller/Allproduct';
-
+import AboutUs from './pages/AboutUs';
 
 const router = createBrowserRouter([
   {
@@ -190,6 +190,10 @@ const router = createBrowserRouter([
   {
     path:"/paymentCancel",
     element:<CancelPage/>
+  },
+  {
+    path:"/aboutus",
+     element:<AboutUs/>
   }
 
 ]);
