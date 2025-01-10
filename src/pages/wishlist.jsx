@@ -66,9 +66,10 @@ const Wishlist = () => {
       await axios.delete(`${apiUrl}/customer/wishlist/${productId}`, {
         headers: { Authorization: `Bearer ${token}` }
       });
-      
+       
       // Remove the item from the wishlist state
       setWishlistItems((prevItems) => prevItems.filter(item => item.product._id !== productId));
+      window.location.reload();
     } catch (error) {
       console.error('Error removing item from wishlist:', error);
     }
@@ -101,10 +102,12 @@ const Wishlist = () => {
               <p className="text-gray-700">Size: {item.sizes}</p>
               <p className="text-gray-600">Rs{item.product.price ? item.product.price.toFixed(2) : 'N/A'}</p>
               <div className="flex items-center gap-x-2">
-              <button className="mt-2 bg-white text-black px-4 py-2 rounded hover:bg-blue-600 border border-black">
-                Remove
-              </button>
-             
+              <button 
+  onClick={() => removeFromWishlist(item._id)}
+  className="mt-2 bg-white text-black px-4 py-2 rounded hover:bg-blue-600 border border-black"
+>
+  Remove
+</button>
               
               <button onClick={()=> addToCart({
                     id: item.product._id,
